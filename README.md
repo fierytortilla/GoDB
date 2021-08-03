@@ -135,7 +135,7 @@ filepaths - one document per SNP panel (assaytype):
 - gopkg.in/mgo.v2 golang library
 - gopkg.in/mgo.v2/bson golang library
 - github.com/brentp/bix golang library for tabix index access
-- github.com/brentp/irelate/intercases golang library for tabix index access
+- github.com/brentp/irelate/interfaces golang library for tabix index access
 
 ## Index Web-Page
 Front page displayed by the prototype web-application
