@@ -23,7 +23,7 @@ git clone https://github.com/fierytortilla/GoDb.git
 mkdir data ; mkdir data/broad ; mkdir data/exome ; mkdir data/affy ; mkdir data/illumina ; mkdir data/logs ; mkdir data/genemap
 touch data/logs/mongod.log
 touch data/start_mongod.sh
-#printf "#!/bin/sh\nexport DBPATH=${HOMEGoDB}/data/db\nexport LOGDIR=${HOMEGoDB}/data/logs\nmongod --dbpath $DBPATH > $LOGDIR/mongod.log &" >> data/start_mongod.sh
+#printf "#!/bin/sh\nexport DBPATH=${HOMEGODB}/data/db\nexport LOGDIR=${HOMEGODB}/data/logs\nmongod --dbpath $DBPATH > $LOGDIR/mongod.log &" >> data/start_mongod.sh
 source GoDB/cfg/common.cfg
 #source data/start_mongod.sh
 python GoDB/webapp/run.py
