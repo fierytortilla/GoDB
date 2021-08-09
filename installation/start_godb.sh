@@ -30,6 +30,7 @@ fi
 mkdir -p data/{broad,exome,affy,illumina,logs,genemap}
 
 touch data/logs/mongod.log
+
 cat <<EOF > data/start_mongod.sh
 #!/bin/sh
 export DBPATH=${PWD}/data/db
@@ -41,6 +42,7 @@ chmod +x data/start_mongod.sh
 ./data/start_mongod.sh
 
 . GoDB/cfg/common.cfg
+
 python GoDB/webapp/run.py
 
 
