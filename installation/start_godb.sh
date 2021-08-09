@@ -1,30 +1,46 @@
-#note that this script is meant to be carried out on Ubuntu 18.04 using python2.7
-#!/bin/sh
-yes | sudo apt update
-yes | sudo apt install python
-yes | sudo apt install perl
-yes | sudo apt install gcc
-yes | sudo apt install make
-yes | sudo apt install git
-yes | sudo apt install mongodb
-yes | sudo apt install tabix
-yes | sudo apt install htslib-test
-yes | sudo apt install python-pysam
-yes | sudo apt install python-pymongo
+#!/bin/bash
+
+set -eu
+
+cd $HOME
+
+sudo apt -y update
+
+sudo apt -y install python perl gcc make git \
+     mongodb tabix libbz2-dev libncurses5-dev \
+     libncursesw5-dev liblzma-dev cython python-pysam \
+     python-pymongo htslib-test python-flask \
+     python-flaskext.wtf
+
 #if you want to run the Go packages, run these commands
 #sudo apt install golang-go
 #go get gopkg.in/mgo.v2
 #go get gopkg.in/mgo.v2/bson
 #go get github.com/brentp/bix
 #go get github.com/brentp/irelate
-yes | sudo apt install python-flask
-yes | sudo apt install python-flaskext.wtf
-git clone https://github.com/fierytortilla/GoDb.git
-mkdir data ; mkdir data/broad ; mkdir data/exome ; mkdir data/affy ; mkdir data/illumina ; mkdir data/logs ; mkdir data/genemap
+
+if [ -d GoDB ] ; then
+    cd GoDB
+    git pull
+    cd ..
+else
+    git clone https://github.com/fierytortilla/GoDB.git GoDB
+fi
+
+mkdir -p data/{broad,exome,affy,illumina,logs,genemap}
+
 touch data/logs/mongod.log
-touch data/start_mongod.sh
-#printf "#!/bin/sh\nexport DBPATH=${HOMEGODB}/data/db\nexport LOGDIR=${HOMEGODB}/data/logs\nmongod --dbpath $DBPATH > $LOGDIR/mongod.log &" >> data/start_mongod.sh
-source GoDB/cfg/common.cfg
-#source data/start_mongod.sh
+cat <<EOF > data/start_mongod.sh
+#!/bin/sh
+export DBPATH=${PWD}/data/db
+export LOGDIR=${PWD}/data/logs
+mongod --dbpath \$DBPATH > \$LOGDIR/mongod.log &
+EOF
+
+chmod +x data/start_mongod.sh
+./data/start_mongod.sh
+
+. GoDB/cfg/common.cfg
 python GoDB/webapp/run.py
+
 
