@@ -52,13 +52,13 @@ Repository sub-directories:
 Scripts located in *load/sh*, *load/py* and *load/pl*.
 All scripts rely on the files in the *cfg* directory to find both data and the MongoDb database, there are examples for five different assay platforms in the *cfg* directory.
 
-Once the cfg files are set up and, assuming the MongoDb collections listed in the next section are either non-existent or do not already contain data for the assay type in question with all indexes dropped three scripts can be run from the *load/sh* directory:
+Once the cfg files are set up and, assuming the MongoDb collections listed in the next section are either non-existent or do not already contain data for the assay type in question with all indexes dropped three scripts can be run from the *load/sh* directory. Ensure the main config file has been sourced first.
 
-- load_variants_from_vcf_files.sh \<full path to assay platform cfg file\> 
+- load_variants_from_vcf_files.sh
 
-- load_samples.sh \<full path to assay platform cfg file\> 
+- load_samples.sh
 
-- load_filepaths.sh \<full path to assay platform cfg file\> 
+- load_filepaths.sh
 
 NOTES:
 - *assay type* is an assigned tag which must be unique for each assay type (SNP Panel) - assaytype examples in use in the current implementation are: "affy", "illumina", "broad", "metabo".
